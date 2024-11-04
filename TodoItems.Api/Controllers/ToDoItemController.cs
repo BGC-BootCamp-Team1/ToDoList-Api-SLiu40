@@ -41,7 +41,7 @@ namespace TodoItems.Api.Controllers
                 Done = request.Done,
             };
             ToDoItem toDoItem = await _service.CreateAsync(dto);
-            return Ok(toDoItem);
+            return Created("",toDoItem);
         }
 
         [HttpPut("{id}")]
