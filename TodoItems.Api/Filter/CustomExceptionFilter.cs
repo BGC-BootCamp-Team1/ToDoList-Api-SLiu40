@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace TodoList.Api.Filter;
+namespace TodoItems.Api.Filter;
 public class CustomExceptionFilter : ExceptionFilterAttribute
 {
     private readonly ILogger<CustomExceptionFilter> _logger;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TodoList.DTO
+namespace TodoItems.Api.DTO
 {
     public record ToDoItemDto
     {

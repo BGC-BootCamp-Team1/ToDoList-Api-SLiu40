@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoList.DTO;
-using TodoList.Service;
+using TodoItems.Api.DTO;
+using TodoItems.Api.Service;
 
-namespace TodoList.Controllers
+namespace TodoItems.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
 
-    public class ToDoItemsController:ControllerBase
+    public class ToDoItemsController : ControllerBase
     {
         private readonly ILogger<ToDoItemsController> _logger;
         private readonly IToDoItemService _service;
@@ -26,33 +26,34 @@ namespace TodoList.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ToDoItemDto>>> GetAsync()
         {
-            List<ToDoItemDto> results =await _service.GetAsync();
+            List<ToDoItemDto> results = await _service.GetAsync();
             return Ok(results);
         }
 
         [HttpPost]
         public async Task<ActionResult<ToDoItemDto>> PostAsync(ToDoItemCreateRequest request)
         {
-            ToDoItemDto dto = new() 
-            { 
-                Description= request.Description,
-                Id=Guid.NewGuid().ToString(),
-                Favorite=request.Favorite,
-                Done=request.Done,
+            ToDoItemDto dto = new()
+            {
+                Description = request.Description,
+                Id = Guid.NewGuid().ToString(),
+                Favorite = request.Favorite,
+                Done = request.Done,
             };
             ToDoItem toDoItem = await _service.CreateAsync(dto);
             return Ok(toDoItem);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutAsync(string id , ToDoItemDto dto)
+        public async Task<ActionResult> PutAsync(string id, ToDoItemDto dto)
         {
             await _service.ReplaceAsync(id, dto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(string id) {
+        public async Task<ActionResult> DeleteAsync(string id)
+        {
             await _service.RemoveAsync(id);
             return Ok();
         }

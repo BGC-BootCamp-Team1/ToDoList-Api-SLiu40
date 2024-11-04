@@ -1,4 +1,4 @@
-﻿namespace TodoList
+﻿namespace TodoItems.Api.Config
 {
     public class ToDoItemDatabaseSettings
     {

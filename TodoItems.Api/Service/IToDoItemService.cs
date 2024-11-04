@@ -1,6 +1,6 @@
-﻿using TodoList.DTO;
+﻿using TodoItems.Api.DTO;
 
-namespace TodoList.Service
+namespace TodoItems.Api.Service
 {
     public interface IToDoItemService
     {

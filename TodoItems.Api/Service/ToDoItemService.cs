@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using TodoList.DTO;
+using TodoItems.Api.Config;
+using TodoItems.Api.DTO;
 
-namespace TodoList.Service
+namespace TodoItems.Api.Service
 {
     public class ToDoItemService : IToDoItemService
     {

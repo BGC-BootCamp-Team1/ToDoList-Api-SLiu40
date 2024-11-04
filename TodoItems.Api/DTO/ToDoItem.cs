@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TodoList.DTO
+namespace TodoItems.Api.DTO
 {
     [BsonIgnoreExtraElements]
     public record ToDoItem
