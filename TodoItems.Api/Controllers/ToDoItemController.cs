@@ -1,0 +1,62 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using TodoList.DTO;
+using TodoList.Service;
+
+namespace TodoList.Controllers
+{
+    [ApiController]
+    [Route("api/v1/[controller]")]
+
+    public class ToDoItemsController:ControllerBase
+    {
+        private readonly ILogger<ToDoItemsController> _logger;
+        private readonly IToDoItemService _service;
+        public ToDoItemsController(ILogger<ToDoItemsController> logger, IToDoItemService toDoItemService)
+        {
+            _logger = logger;
+            _service = toDoItemService;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ToDoItemDto>> Get(string id)
+        {
+            return Ok(await _service.GetAsync(id));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ToDoItemDto>>> Get()
+        {
+            List<ToDoItemDto> results =await _service.GetAsync();
+            return Ok(results);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<ToDoItemDto>> Post(ToDoItemCreateRequest request)
+        {
+            ToDoItemDto dto = new() 
+            { 
+                Description= request.Description,
+                Id=Guid.NewGuid().ToString(),
+                Favorite=request.Favorite,
+                Done=request.Done,
+            };
+            ToDoItem toDoItem = await _service.CreateAsync(dto);
+            return Ok(toDoItem);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(string id , ToDoItemDto dto)
+        {
+            await _service.ReplaceAsync(id, dto);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id) {
+            await _service.RemoveAsync(id);
+            return Ok();
+        }
+
+    }
+}
