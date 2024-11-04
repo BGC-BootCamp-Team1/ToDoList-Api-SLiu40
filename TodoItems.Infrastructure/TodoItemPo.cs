@@ -9,6 +9,10 @@ public class TodoItemPo
     // [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
     public string Description { get; set; }
+    public bool Done {  get; set; } 
+    public bool Favorite {  get; set; }
+    public DateTime CreatedTime {  get; set; }
+
     public string UserId{ get; set; }
     public DateTime DueDay { get; set; }
     public List<Modification> ModificationList { get; set; }

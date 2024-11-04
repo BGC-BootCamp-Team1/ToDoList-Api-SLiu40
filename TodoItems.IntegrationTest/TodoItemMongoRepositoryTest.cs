@@ -25,7 +25,7 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
         // 初始化 TodoService
         _mongoRepository = new TodoItemMongoRepository(mockSettings.Object);
 
-        var mongoClient = new MongoClient("mongodb://sliu40:sliu40@47.116.197.93:27017");
+        var mongoClient = new MongoClient("mongodb://localhost:27017");
         var mongoDatabase = mongoClient.GetDatabase("TodoTestStore");
         _mongoCollection = mongoDatabase.GetCollection<TodoItemPo>("Todos");
     }
@@ -51,7 +51,7 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
             UserId = "user1",
         }; ;
         await _mongoCollection.InsertOneAsync(todoItemPo);
-        var todoItem = await _mongoRepository.FindById("5f9a7d8e2d3b4a1eb8a7d8e2");
+        var todoItem = _mongoRepository.FindById("5f9a7d8e2d3b4a1eb8a7d8e2");
 
         Assert.NotNull(todoItem);
         Assert.Equal("5f9a7d8e2d3b4a1eb8a7d8e2", todoItem.Id);
@@ -64,7 +64,7 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
         var item = new TodoItemDTO("Des", DateTime.Today.AddDays(1), "user1");
 
         _mongoRepository.Save(item);
-        var todoItem =await _mongoRepository.FindById(item.Id);
+        var todoItem = _mongoRepository.FindById(item.Id);
 
         Assert.NotNull(todoItem);
         Assert.Equal(item.Id, todoItem.Id);

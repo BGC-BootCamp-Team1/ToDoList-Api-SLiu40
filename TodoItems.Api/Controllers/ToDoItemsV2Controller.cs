@@ -21,7 +21,7 @@ namespace TodoItems.Api.Controllers
         public async Task<ActionResult<TodoItemVO>> PostAsync(ToDoItemCreateRequest request)
         {
             TodoItemDTO dto = _service.Create(OptionEnum.Manual, request.Description, request.DueDay, request.UserId);
-            TodoItemVO ao = new TodoItemVO
+            TodoItemVO vo = new TodoItemVO
             {
                 Id=dto.Id,
                 Description=dto.Description,
@@ -32,39 +32,16 @@ namespace TodoItems.Api.Controllers
                 ModificationList=dto.ModificationList,
                 UserId=dto.UserId
             };
-            return Created("", ao);
+            return Created("", vo);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<TodoItemVO>> PutAsync(string id, TodoItemUpdateRequest request)
-        //{
-        //    new TodoItemDTO
-        //    {
-        //        Id = id,
-        //        Description=request.Description,
-        //        CreatedTime=request.CreatedTime,
-        //        Favorite=request.Favorite,
-        //        Done=request.Done,
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TodoItemVO>> PutAsync(string id, TodoItemUpdateRequest request)
+        {
 
-        //    }
-
-
-
-        //    TodoItemDTO dto = _service.Update(id, request);
-        //    TodoItemVO ao = new TodoItemVO
-        //    {
-        //        Id = dto.Id,
-        //        Description = dto.Description,
-        //        CreatedTime = dto.CreatedTime,
-        //        DueDay = dto.DueDay,
-        //        Favorite = dto.Favorite,
-        //        Done = dto.Done,
-        //        ModificationList = dto.ModificationList,
-        //        UserId = dto.UserId
-        //    };
-
-        //    return Ok(ao);
-        //}
+            _service.Update(id, request);
+            return Ok();
+        }
 
 
 

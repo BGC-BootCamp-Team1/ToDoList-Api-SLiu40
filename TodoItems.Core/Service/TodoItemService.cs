@@ -1,4 +1,5 @@
-﻿using TodoItems.Core.Model;
+﻿using TodoItems.Api.Model;
+using TodoItems.Core.Model;
 using TodoItems.Core.Repository;
 
 namespace TodoItems.Core.Service
@@ -19,5 +20,29 @@ namespace TodoItems.Core.Service
             return _repository.Save(todoItem);
         }
 
+        public void Update(string id, TodoItemUpdateRequest request)
+        {
+            TodoItemDTO? dto=null;
+
+            try
+            {
+                dto = _repository.FindById(id);
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+
+            if (dto==null)
+            {
+                Create(OptionEnum.Manual, request.Description, request.DueDay, request.UserId);
+            }
+            dto.Modify(request.Description);
+
+
+
+
+            _repository.Update(dto);
+
+        }
     }
 }

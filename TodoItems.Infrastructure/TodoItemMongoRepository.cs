@@ -16,22 +16,19 @@ public class TodoItemMongoRepository : ITodoItemsRepository
         _todosCollection = mongoDatabase.GetCollection<TodoItemPo>(todoStoreDatabaseSettings.Value.TodoItemsCollectionName);
     }
 
-    public async Task<TodoItemDTO> FindById(string? id)
+    public TodoItemDTO? FindById(string id)
     {
         FilterDefinition<TodoItemPo> filter = Builders<TodoItemPo>.Filter.Eq(x => x.Id, id);
-        TodoItemPo todoItemPo = await _todosCollection.Find(filter).FirstOrDefaultAsync();
-
+        TodoItemPo todoItemPo = _todosCollection.Find(filter).FirstOrDefault();
+        if (todoItemPo == null) return null;
         // 将 TodoItemPo 转换为 TodoItem
         TodoItemDTO todoItem = ConvertToTodoItem(todoItemPo);
         return todoItem;
     }
 
-    private TodoItemDTO ConvertToTodoItem(TodoItemPo? todoItemPo)
+    private TodoItemDTO ConvertToTodoItem(TodoItemPo todoItemPo)
     {
-        if (todoItemPo == null) return null;
-
         return new TodoItemDTO (todoItemPo.Id,todoItemPo.Description,todoItemPo.DueDay,"user1");
-
     }
     
     public List<TodoItemDTO> FindAllTodoItemsByUserIdAndDueDay(string userId, DateTime dueDay)
@@ -74,6 +71,15 @@ public class TodoItemMongoRepository : ITodoItemsRepository
         var todoItems = todoItemsPoList.Select(TodoMapper.ToItem).ToList();
 
         return todoItems;
+
+    }
+
+    public void Update(TodoItemDTO dto)
+    {
+        TodoItemPo todoItemPo = TodoMapper.ToPo(dto);
+        var filter = Builders<TodoItemPo>.Filter.Eq(r => r.Id, dto.Id);
+        ReplaceOneResult replaceOneResult = _todosCollection.ReplaceOne(filter, todoItemPo);
+
 
     }
 }
