@@ -126,9 +126,16 @@ namespace TodoItems.ApiTest
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
+            var todoItemReponse = JsonSerializer.Deserialize<TodoItemVO>(responseContent, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            Assert.NotNull(todoItemReponse);
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
+            Assert.Equal("test create", todoItemReponse.Description);
         }
 
 

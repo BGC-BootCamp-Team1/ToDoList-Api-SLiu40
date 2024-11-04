@@ -20,21 +20,18 @@ namespace TodoItems.Core.Service
             return _repository.Save(todoItem);
         }
 
-        public void Update(string id, TodoItemUpdateRequest request)
+        public TodoItemDTO Update(string id, TodoItemUpdateRequest request)
         {
             TodoItemDTO? dto= _repository.FindById(id);
 
 
             if (dto==null)
             {
-                Create(OptionEnum.Manual, request.Description, request.DueDay, request.UserId);
+                return Create(OptionEnum.Manual, request.Description, request.DueDay, request.UserId);
             }
             dto.Modify(request);
 
-
-
-
-            _repository.Update(dto);
+            return _repository.Update(dto);
 
         }
     }

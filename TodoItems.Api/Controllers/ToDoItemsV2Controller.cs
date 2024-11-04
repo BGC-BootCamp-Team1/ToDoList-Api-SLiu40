@@ -39,8 +39,18 @@ namespace TodoItems.Api.Controllers
         public async Task<ActionResult<TodoItemVO>> PutAsync(string id, TodoItemUpdateRequest request)
         {
 
-            _service.Update(id, request);
-            return Ok();
+            TodoItemDTO dto = _service.Update(id, request);
+            return Ok(new TodoItemVO
+            {
+                Id = dto.Id,
+                Description = dto.Description,
+                CreatedTime = dto.CreatedTime,
+                DueDay = dto.DueDay,
+                Favorite = dto.Favorite,
+                Done = dto.Done,
+                ModificationList = dto.ModificationList,
+                UserId = dto.UserId
+            });
         }
 
 

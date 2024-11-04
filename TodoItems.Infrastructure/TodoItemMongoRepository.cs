@@ -74,12 +74,14 @@ public class TodoItemMongoRepository : ITodoItemsRepository
 
     }
 
-    public void Update(TodoItemDTO dto)
+    public TodoItemDTO Update(TodoItemDTO dto)
     {
         TodoItemPo todoItemPo = TodoMapper.ToPo(dto);
         var filter = Builders<TodoItemPo>.Filter.Eq(r => r.Id, dto.Id);
         ReplaceOneResult replaceOneResult = _todosCollection.ReplaceOne(filter, todoItemPo);
+        return TodoMapper.ToItem(_todosCollection.Find<TodoItemPo>(Builders<TodoItemPo>.Filter.Eq(x => x.Id, dto.Id)).First());
 
 
+         
     }
 }

@@ -8,6 +8,6 @@ namespace TodoItems.Core.Repository
         TodoItemDTO? FindById(string id);
         List<TodoItemDTO> FindTodoItemsInFiveDaysByUserId(string userId);
         TodoItemDTO Save(TodoItemDTO todoItem);
-        void Update(TodoItemDTO dto);
+        TodoItemDTO Update(TodoItemDTO dto);
     }
 }

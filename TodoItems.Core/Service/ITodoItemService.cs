@@ -6,5 +6,5 @@ namespace TodoItems.Core.Service;
 public interface ITodoItemService
 {
     TodoItemDTO Create(OptionEnum option, string description, DateTime? dueDay, string userId);
-    void Update(string id, TodoItemUpdateRequest request);
+    TodoItemDTO Update(string id, TodoItemUpdateRequest request);
 }
