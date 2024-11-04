@@ -1,6 +1,9 @@
+using Microsoft.Extensions.DependencyInjection;
 using TodoItems.Api.Config;
 using TodoItems.Api.Filter;
 using TodoItems.Api.Service;
+using TodoItems.Core.Repository;
+using TodoItems.Infrastructure;
 
 public class Program
 {
@@ -20,7 +23,9 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.Configure<ToDoItemDatabaseSettings>(builder.Configuration.GetSection("ToDoItemDatabase"));
-        builder.Services.AddSingleton<IToDoItemService, ToDoItemService>();
+        builder.Services.AddSingleton<ITodoItemsRepository, TodoItemMongoRepository>();
+        builder.Services.AddKeyedSingleton<IToDoItemService, ToDoItemService>("localService");
+        builder.Services.AddKeyedSingleton<TodoItems.Core.Service.ITodoItemService, TodoItems.Core.Service.TodoItemService>("externalService");
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

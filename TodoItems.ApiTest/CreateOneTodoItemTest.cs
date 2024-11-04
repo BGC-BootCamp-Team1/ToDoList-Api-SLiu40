@@ -4,7 +4,6 @@ using TodoItems.Api.DTO;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Text.Json;
 using System.Net;
-using TodoItems.Api;
 
 
 namespace TodoItems.ApiTest

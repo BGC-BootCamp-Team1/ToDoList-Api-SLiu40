@@ -11,7 +11,7 @@ namespace TodoItems.Api.Controllers
     {
         private readonly ILogger<ToDoItemsController> _logger;
         private readonly IToDoItemService _service;
-        public ToDoItemsController(ILogger<ToDoItemsController> logger, IToDoItemService toDoItemService)
+        public ToDoItemsController(ILogger<ToDoItemsController> logger, [FromKeyedServices("localService")] IToDoItemService toDoItemService)
         {
             _logger = logger;
             _service = toDoItemService;
