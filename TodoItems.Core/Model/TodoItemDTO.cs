@@ -1,8 +1,7 @@
-﻿using System.Security.Cryptography;
-
+﻿
 namespace TodoItems.Core.Model;
 
-public class TodoItem
+public class TodoItemDTO
 {
     public string Id;
     public string Description { get; set; }
@@ -13,7 +12,7 @@ public class TodoItem
     public DateTime CreatedTime { get; set; }
     public List<Modification> ModificationList { get; set; }
 
-    public TodoItem(string description, DateTime dueDay, string userId)
+    public TodoItemDTO(string description, DateTime dueDay, string userId)
     {
         Id = Guid.NewGuid().ToString();
         Description = description;
@@ -21,7 +20,7 @@ public class TodoItem
         UserId = userId;
         ModificationList = new List<Modification>();
     }
-    public TodoItem(string id,string description, DateTime dueDay, string userId)
+    public TodoItemDTO(string id,string description, DateTime dueDay, string userId)
     {
         Id = id;
         Description = description;
@@ -29,7 +28,7 @@ public class TodoItem
         UserId = userId;
         ModificationList = new List<Modification>();
     }
-    public TodoItem(string id,string description, DateTime dueDay, string userId,List<Modification> modificationList)
+    public TodoItemDTO(string id,string description, DateTime dueDay, string userId,List<Modification> modificationList)
     {
         Id = id;
         Description = description;
@@ -38,7 +37,7 @@ public class TodoItem
         ModificationList = modificationList;
     }
 
-    public TodoItem()
+    public TodoItemDTO()
     {
     }
 

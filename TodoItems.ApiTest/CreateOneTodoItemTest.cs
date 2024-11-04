@@ -83,7 +83,7 @@ namespace TodoItems.ApiTest
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var todoItemReponse = JsonSerializer.Deserialize<TodoItem>(responseContent, new JsonSerializerOptions
+            var todoItemReponse = JsonSerializer.Deserialize<TodoItemVO>(responseContent, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });

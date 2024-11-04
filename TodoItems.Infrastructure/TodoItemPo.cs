@@ -17,7 +17,7 @@ public class TodoItemPo
 
 public static class TodoMapper
 {
-    public static TodoItemPo ToPo(TodoItem item)
+    public static TodoItemPo ToPo(TodoItemDTO item)
     {
         return new TodoItemPo()
         {
@@ -29,9 +29,9 @@ public static class TodoMapper
         };
     }
     
-    public static TodoItem ToItem(TodoItemPo po)
+    public static TodoItemDTO ToItem(TodoItemPo po)
     {
-        return new TodoItem(po.Id,po.Description,po.DueDay,po.UserId,po.ModificationList);
+        return new TodoItemDTO(po.Id,po.Description,po.DueDay,po.UserId,po.ModificationList);
     }
     
     

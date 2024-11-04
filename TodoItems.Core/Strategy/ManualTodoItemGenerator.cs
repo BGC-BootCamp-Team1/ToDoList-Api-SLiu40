@@ -5,7 +5,7 @@ namespace TodoItems.Core.Strategy;
 
 public class ManualTodoItemGenerator(ITodoItemsRepository repository) : ITodoItemGenerator
 {
-    public TodoItem Generate(string description, DateTime? dueDay, string userId)
+    public TodoItemDTO Generate(string description, DateTime? dueDay, string userId)
     {
         if (dueDay is null || dueDay < DateTime.Today)
         {
@@ -18,6 +18,6 @@ public class ManualTodoItemGenerator(ITodoItemsRepository repository) : ITodoIte
             throw new MaximumSameDueDayException($"too many items on the same day for {userId}");
         }
 
-        return new TodoItem(description, dueDay.Value, userId);
+        return new TodoItemDTO(description, dueDay.Value, userId);
     }
 }

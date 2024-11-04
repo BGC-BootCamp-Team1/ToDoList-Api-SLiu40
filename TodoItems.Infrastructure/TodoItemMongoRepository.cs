@@ -16,25 +16,25 @@ public class TodoItemMongoRepository : ITodoItemsRepository
         _todosCollection = mongoDatabase.GetCollection<TodoItemPo>(todoStoreDatabaseSettings.Value.TodoItemsCollectionName);
     }
 
-    public async Task<TodoItem> FindById(string? id)
+    public async Task<TodoItemDTO> FindById(string? id)
     {
         FilterDefinition<TodoItemPo> filter = Builders<TodoItemPo>.Filter.Eq(x => x.Id, id);
         TodoItemPo todoItemPo = await _todosCollection.Find(filter).FirstOrDefaultAsync();
 
         // 将 TodoItemPo 转换为 TodoItem
-        TodoItem todoItem = ConvertToTodoItem(todoItemPo);
+        TodoItemDTO todoItem = ConvertToTodoItem(todoItemPo);
         return todoItem;
     }
 
-    private TodoItem ConvertToTodoItem(TodoItemPo? todoItemPo)
+    private TodoItemDTO ConvertToTodoItem(TodoItemPo? todoItemPo)
     {
         if (todoItemPo == null) return null;
 
-        return new TodoItem (todoItemPo.Id,todoItemPo.Description,todoItemPo.DueDay,"user1");
+        return new TodoItemDTO (todoItemPo.Id,todoItemPo.Description,todoItemPo.DueDay,"user1");
 
     }
     
-    public List<TodoItem> FindAllTodoItemsByUserIdAndDueDay(string userId, DateTime dueDay)
+    public List<TodoItemDTO> FindAllTodoItemsByUserIdAndDueDay(string userId, DateTime dueDay)
     {
         FilterDefinition<TodoItemPo> filter = Builders<TodoItemPo>
             .Filter.And(
@@ -49,7 +49,7 @@ public class TodoItemMongoRepository : ITodoItemsRepository
 
     }
 
-    public TodoItem Save(TodoItem todoItem)
+    public TodoItemDTO Save(TodoItemDTO todoItem)
     {
         _todosCollection.InsertOne(TodoMapper.ToPo(todoItem));
         FilterDefinition<TodoItemPo> filter = Builders<TodoItemPo>.Filter.Eq(x => x.Id, todoItem.Id);
@@ -58,7 +58,7 @@ public class TodoItemMongoRepository : ITodoItemsRepository
         return TodoMapper.ToItem(todoItemPo!);
     }
 
-    public List<TodoItem> FindTodoItemsInFiveDaysByUserId(string userId)
+    public List<TodoItemDTO> FindTodoItemsInFiveDaysByUserId(string userId)
     {
         DateTime startDate = DateTime.Today.AddDays(1);
         DateTime endDate = DateTime.Today.AddDays(5);

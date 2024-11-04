@@ -61,7 +61,7 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
     [Fact]
     public async void should_Created_when_save()
     {
-        var item = new TodoItem("Des", DateTime.Today.AddDays(1), "user1");
+        var item = new TodoItemDTO("Des", DateTime.Today.AddDays(1), "user1");
 
         _mongoRepository.Save(item);
         var todoItem =await _mongoRepository.FindById(item.Id);

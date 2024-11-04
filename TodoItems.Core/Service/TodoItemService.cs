@@ -12,7 +12,7 @@ namespace TodoItems.Core.Service
             _repository = repository;
         }
 
-        public TodoItem Create(OptionEnum option, string description, DateTime? dueDay, string userId)
+        public TodoItemDTO Create(OptionEnum option, string description, DateTime? dueDay, string userId)
         {
             var generator = new TodoItemGeneratorFactory(_repository).GetGenerator(option, dueDay);
             var todoItem = generator.Generate(description, dueDay, userId);

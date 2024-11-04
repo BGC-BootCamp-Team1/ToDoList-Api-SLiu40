@@ -4,8 +4,8 @@ namespace TodoItems.Core.Repository
 {
     public interface ITodoItemsRepository
     {
-        List<TodoItem> FindAllTodoItemsByUserIdAndDueDay(string userId, DateTime dueDay);
-        List<TodoItem> FindTodoItemsInFiveDaysByUserId(string userId);
-        TodoItem Save(TodoItem todoItem);
+        List<TodoItemDTO> FindAllTodoItemsByUserIdAndDueDay(string userId, DateTime dueDay);
+        List<TodoItemDTO> FindTodoItemsInFiveDaysByUserId(string userId);
+        TodoItemDTO Save(TodoItemDTO todoItem);
     }
 }

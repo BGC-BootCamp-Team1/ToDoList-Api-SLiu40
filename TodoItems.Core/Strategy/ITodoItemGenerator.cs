@@ -4,5 +4,5 @@ namespace TodoItems.Core.Strategy;
 
 public interface ITodoItemGenerator
 {
-    TodoItem Generate(string description, DateTime? dueDay, string userId);
+    TodoItemDTO Generate(string description, DateTime? dueDay, string userId);
 }

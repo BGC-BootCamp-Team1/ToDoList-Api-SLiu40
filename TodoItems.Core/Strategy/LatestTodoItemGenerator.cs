@@ -5,7 +5,7 @@ namespace TodoItems.Core.Strategy;
 
 public class LatestTodoItemGenerator(ITodoItemsRepository repository) : ITodoItemGenerator
 {
-    public TodoItem Generate(string description, DateTime? dueDay, string userId)
+    public TodoItemDTO Generate(string description, DateTime? dueDay, string userId)
     {
         var todoItems = repository.FindTodoItemsInFiveDaysByUserId(userId);
         var dueDayList = todoItems
@@ -17,7 +17,7 @@ public class LatestTodoItemGenerator(ITodoItemsRepository repository) : ITodoIte
         {
             if (dueDayCountPair.Count < Constants.MAX_DAY_SAME_DUEDAY)
             {
-                return new TodoItem(description, (DateTime)dueDayCountPair.DueDay, userId);
+                return new TodoItemDTO(description, (DateTime)dueDayCountPair.DueDay, userId);
             }
         }
 
