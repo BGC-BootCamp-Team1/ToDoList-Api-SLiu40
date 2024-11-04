@@ -1,4 +1,6 @@
 ﻿
+using TodoItems.Api.Model;
+
 namespace TodoItems.Core.Model;
 
 public class TodoItemDTO
@@ -61,5 +63,32 @@ public class TodoItemDTO
             Description = description;
             ModificationList.Add(new Modification());
         }
+    }
+    public void Modify(TodoItemUpdateRequest request)
+    {
+        int count = 0;
+        ModificationList.ForEach(modification =>
+        {
+            if (DateTime.Now.Subtract(modification.TimeStamp).TotalDays <= 1)
+            {
+                count++;
+            }
+        });
+        if (count >= Constants.MAX_MODIFY_TIME_ONE_DAY)
+        {
+            throw new MaximumModificationException("You have reached the maximum number of modifications for today. Please try agian tomorrow.");
+        }
+
+        if (request.Description is not null && !request.Description.Equals(Description))
+        {
+            Description = request.Description;
+            ModificationList.Add(new Modification());
+        }
+        DueDay = request.DueDay is null? DueDay : request.DueDay.Value;
+        UserId = request.UserId is null ? UserId : request.UserId;
+        Done = request.Done is null ? Done : request.Done.Value;
+        Favorite = request.Favorite is null ? Favorite : request.Favorite.Value;
+        CreatedTime = request.CreatedTime is null ? CreatedTime : request.CreatedTime.Value;
+
     }
 }

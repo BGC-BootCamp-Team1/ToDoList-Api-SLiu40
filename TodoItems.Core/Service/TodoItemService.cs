@@ -22,21 +22,14 @@ namespace TodoItems.Core.Service
 
         public void Update(string id, TodoItemUpdateRequest request)
         {
-            TodoItemDTO? dto=null;
+            TodoItemDTO? dto= _repository.FindById(id);
 
-            try
-            {
-                dto = _repository.FindById(id);
-            }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-            }
 
             if (dto==null)
             {
                 Create(OptionEnum.Manual, request.Description, request.DueDay, request.UserId);
             }
-            dto.Modify(request.Description);
+            dto.Modify(request);
 
 
 

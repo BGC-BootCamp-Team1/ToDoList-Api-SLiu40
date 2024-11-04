@@ -11,7 +11,6 @@ namespace TodoItems.Api.Model
         public bool? Done { get; set; }
         public bool? Favorite { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public List<Modification>? ModificationList { get; set; }
 
     }
 }

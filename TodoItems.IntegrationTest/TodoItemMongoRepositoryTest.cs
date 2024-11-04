@@ -17,7 +17,7 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
 
         mockSettings.Setup(s => s.Value).Returns(new TodoStoreDatabaseSettings
         {
-            ConnectionString = "mongodb://sliu40:sliu40@47.116.197.93:27017",
+            ConnectionString = "mongodb://localhost:27017",
             DatabaseName = "TodoTestStore",
             TodoItemsCollectionName = "Todos"
         });
@@ -101,18 +101,19 @@ public class TodoItemMongoRepositoryTest : IAsyncLifetime
     public void FindTodoItemsInFiveDaysByUserId_ReturnsCorrectCount_WhenItemsExist()
     {
 
+
         List<TodoItemPo> todoItemPos = [   
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(-1),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(1),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(2),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user2",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(4),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
-            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(10),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() },
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(-1),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(1),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(2),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>(),Favorite = true,Done= true,CreatedTime = DateTime.Today, },
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user2",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(3),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(4),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
+            new TodoItemPo{ Description = "des",DueDay = DateTime.Today.AddDays(10),Id = Guid.NewGuid().ToString(),UserId = "user1",ModificationList = new List<Modification>() ,Favorite = true,Done= true,CreatedTime = DateTime.Today,},
 
         ];
         _mongoCollection.InsertMany(todoItemPos);
