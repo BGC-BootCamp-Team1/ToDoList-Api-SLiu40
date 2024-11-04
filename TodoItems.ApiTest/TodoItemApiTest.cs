@@ -6,6 +6,8 @@ using System.Text.Json;
 using System.Net;
 using TodoItems.Core.Model;
 using TodoItems.Infrastructure;
+using Google.Protobuf.WellKnownTypes;
+using TodoItems.Core;
 
 
 namespace TodoItems.ApiTest
@@ -23,7 +25,7 @@ namespace TodoItems.ApiTest
 
             var mongoClient = new MongoClient("mongodb://localhost:27017");
             var mongoDatabase = mongoClient.GetDatabase("TodoItems");
-            _mongoCollection = mongoDatabase.GetCollection<ToDoItem>("Todos");
+            _mongoCollection = mongoDatabase.GetCollection<ToDoItem>("TodoItems");
         }
 
         public async Task InitializeAsync()
@@ -41,6 +43,8 @@ namespace TodoItems.ApiTest
                 Description = "test create",
                 Done = false,
                 Favorite = true,
+                UserId = "user1",
+                option = OptionEnum.Freest
             };
 
             var json = JsonSerializer.Serialize(todoItemRequst);
@@ -52,14 +56,14 @@ namespace TodoItems.ApiTest
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var returnedTodos = JsonSerializer.Deserialize<ToDoItemDto>(responseContent, new JsonSerializerOptions
+            var returnedTodos = JsonSerializer.Deserialize<TodoItemVO>(responseContent, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
 
             Assert.NotNull(returnedTodos);
             Assert.Equal("test create", returnedTodos.Description);
-            Assert.True(returnedTodos.Favorite);
+            Assert.False(returnedTodos.Favorite);
             Assert.False(returnedTodos.Done);
         }
 

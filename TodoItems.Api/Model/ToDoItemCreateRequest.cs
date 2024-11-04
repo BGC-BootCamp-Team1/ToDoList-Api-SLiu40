@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TodoItems.Core;
 
 namespace TodoItems.Api.Model
 {
@@ -12,5 +13,7 @@ namespace TodoItems.Api.Model
 
         public DateTime? DueDay { get; set; }
         public string? UserId { get;set; }
+
+        public OptionEnum option { get; set; } = OptionEnum.Manual;
     }
 }

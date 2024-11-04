@@ -12,7 +12,10 @@ public class FreestTodoItemGenerator(ITodoItemsRepository repository) : ITodoIte
             .GroupBy(item => item.DueDay)
             .Select(group => new { DueDay = group.Key, Count = group.Count() })
             .OrderBy(item => item.Count);
-        
+
+        if (dueDayList.ToList().Count==0) {
+            return new TodoItemDTO(description, DateTime.Today, userId);
+        }
         foreach (var dueDayCountPair in dueDayList)
         {
             if (dueDayCountPair.Count < Constants.MAX_DAY_SAME_DUEDAY)
