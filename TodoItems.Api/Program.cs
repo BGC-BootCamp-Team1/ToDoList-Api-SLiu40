@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using TodoItems.Api.Config;
 using TodoItems.Api.Filter;
 using TodoItems.Api.Service;
@@ -23,6 +22,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.Configure<ToDoItemDatabaseSettings>(builder.Configuration.GetSection("ToDoItemDatabase"));
+        builder.Services.Configure<TodoStoreDatabaseSettings>(builder.Configuration.GetSection("ToDoItemDatabase"));
         builder.Services.AddSingleton<ITodoItemsRepository, TodoItemMongoRepository>();
         builder.Services.AddKeyedSingleton<IToDoItemService, ToDoItemService>("localService");
         builder.Services.AddKeyedSingleton<TodoItems.Core.Service.ITodoItemService, TodoItems.Core.Service.TodoItemService>("externalService");

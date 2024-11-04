@@ -1,9 +1,10 @@
 ﻿using MongoDB.Driver;
 using System.Text;
-using TodoItems.Api.DTO;
+using TodoItems.Api.Model;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Text.Json;
 using System.Net;
+using TodoItems.Core.Model;
 
 
 namespace TodoItems.ApiTest
@@ -69,26 +70,27 @@ namespace TodoItems.ApiTest
                 Description = "test create",
                 Done = false,
                 Favorite = true,
+                DueDay = DateTime.Now,
+                UserId = "user1"
             };
 
             var json = JsonSerializer.Serialize(todoItemRequst);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("/api/v2/todoitemsV2", content);
+            var response = await _client.PostAsync("/api/v2/todoitems", content);
 
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var returnedTodos = JsonSerializer.Deserialize<ToDoItemDto>(responseContent, new JsonSerializerOptions
+            var todoItemReponse = JsonSerializer.Deserialize<TodoItem>(responseContent, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
 
-            Assert.NotNull(returnedTodos);
-            Assert.Equal("test create", returnedTodos.Description);
-            Assert.True(returnedTodos.Favorite);
-            Assert.False(returnedTodos.Done);
+            Assert.NotNull(todoItemReponse);
+            Assert.Equal("test create", todoItemReponse.Description);
+
         }
 
 

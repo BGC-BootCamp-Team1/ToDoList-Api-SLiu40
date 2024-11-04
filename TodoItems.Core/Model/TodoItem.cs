@@ -8,6 +8,9 @@ public class TodoItem
     public string Description { get; set; }
     public DateTime DueDay { get; set; }
     public string UserId { get; set; }
+    public bool Done { get; set; }
+    public bool Favorite { get; set; }
+    public DateTime CreatedTime { get; set; }
     public List<Modification> ModificationList { get; set; }
 
     public TodoItem(string description, DateTime dueDay, string userId)
@@ -35,6 +38,9 @@ public class TodoItem
         ModificationList = modificationList;
     }
 
+    public TodoItem()
+    {
+    }
 
     public void Modify(string description)
     {

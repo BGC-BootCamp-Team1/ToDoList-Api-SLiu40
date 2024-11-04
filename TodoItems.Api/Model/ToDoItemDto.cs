@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TodoItems.Api.DTO
+namespace TodoItems.Api.Model
 {
     public record ToDoItemDto
     {
@@ -10,7 +10,7 @@ namespace TodoItems.Api.DTO
         public required string Description { get; set; }
         public bool Done { get; set; } = false;
         public bool Favorite { get; set; } = false;
-        public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.UtcNow;
+        public DateTime CreatedTime { get; set; } = DateTime.Now;
 
 
         public static ToDoItemDto Map(ToDoItem dto)
@@ -22,7 +22,6 @@ namespace TodoItems.Api.DTO
                 Done = dto.Done,
                 Favorite = dto.Favorite,
                 CreatedTime = dto.CreatedTime,
-
             };
         }
     }

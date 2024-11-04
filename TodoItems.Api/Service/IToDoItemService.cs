@@ -1,4 +1,4 @@
-﻿using TodoItems.Api.DTO;
+﻿using TodoItems.Api.Model;
 
 namespace TodoItems.Api.Service
 {

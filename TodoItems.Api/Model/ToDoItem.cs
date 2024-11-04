@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TodoItems.Api.DTO
+namespace TodoItems.Api.Model
 {
     [BsonIgnoreExtraElements]
     public record ToDoItem
@@ -12,8 +12,7 @@ namespace TodoItems.Api.DTO
         public required bool Done { get; set; }
         public required bool Favorite { get; set; }
 
-        [BsonRepresentation(BsonType.String)]
-        public required DateTimeOffset CreatedTime { get; init; }
+        public required DateTime CreatedTime { get; init; }
 
         public static ToDoItem Map(ToDoItemDto dto)
         {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using TodoItems.Api.Config;
-using TodoItems.Api.DTO;
+using TodoItems.Api.Model;
 
 namespace TodoItems.Api.Service
 {

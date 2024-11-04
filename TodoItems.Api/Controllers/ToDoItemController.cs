@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoItems.Api.DTO;
+using TodoItems.Api.Model;
 using TodoItems.Api.Service;
 
 namespace TodoItems.Api.Controllers
