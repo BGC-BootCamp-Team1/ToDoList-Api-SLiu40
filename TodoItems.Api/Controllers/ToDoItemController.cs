@@ -18,13 +18,13 @@ namespace TodoList.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ToDoItemDto>> Get(string id)
+        public async Task<ActionResult<ToDoItemDto>> GetAsyn(string id)
         {
             return Ok(await _service.GetAsync(id));
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ToDoItemDto>>> Get()
+        public async Task<ActionResult<List<ToDoItemDto>>> GetAsyn()
         {
             List<ToDoItemDto> results =await _service.GetAsync();
             return Ok(results);
@@ -32,7 +32,7 @@ namespace TodoList.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ToDoItemDto>> Post(ToDoItemCreateRequest request)
+        public async Task<ActionResult<ToDoItemDto>> PostAsync(ToDoItemCreateRequest request)
         {
             ToDoItemDto dto = new() 
             { 
@@ -46,14 +46,14 @@ namespace TodoList.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string id , ToDoItemDto dto)
+        public async Task<ActionResult> PutAsyn(string id , ToDoItemDto dto)
         {
             await _service.ReplaceAsync(id, dto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id) {
+        public async Task<ActionResult> DeleteAsyn(string id) {
             await _service.RemoveAsync(id);
             return Ok();
         }
